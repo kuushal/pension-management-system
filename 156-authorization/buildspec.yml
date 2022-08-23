@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - mvn clean install
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 274201610284.dkr.ecr.ap-south-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn clean package
+      - echo Building the Docker image...
+      - docker build -t 156-authorization .
+      - docker tag 156-authorization:latest 274201610284.dkr.ecr.ap-south-1.amazonaws.com/156-authorization:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push 274201610284.dkr.ecr.ap-south-1.amazonaws.com/156-authorization:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"authorization","imageUri":"%s"}]' 274201610284.dkr.ecr.ap-south-1.amazonaws.com/156-authorization:latest > imagedefinitions.json
+      - cat imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json

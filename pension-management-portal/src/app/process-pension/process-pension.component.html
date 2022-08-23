@@ -1,0 +1,55 @@
+<head>
+  <title>Pension Management Portal</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous" />
+</head>
+
+<div class="main-block">
+  <form action="/" *ngIf="!isShown" #f="ngForm">
+    <div class="info">
+      <div class="info-item">
+        <label for="aadhaarNumber"></label>
+
+        <input type="text" [(ngModel)]="aadhaarNumber" placeholder="Enter your Aadhaar number" name="AadhaarNumber"
+          id="aadhaarNumber" minlength="12" pattern="[0-9]+" required />
+
+        <button class="btn btn-primary" style="font-size:17px ;" type="submit" [disabled]="!f.valid"
+          (click)="getAadhaarNumber()">
+          Get Pension Details
+        </button>
+        <p *ngIf="error" class="error">{{ error }}</p>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="submitted" class="output">
+  <form #f1="ngForm">
+    <div class="info-item">
+      <h4 style="color:rgb(50, 52, 49); text-align: center;">
+        Pension Details
+      </h4>
+      <table id="details">
+        <tr>
+          <th>AadhaarNumber</th>
+          <td>{{ pensiondetail.aadhaarNumber }}</td>
+        </tr>
+        <tr>
+          <th>Process Id</th>
+          <td>{{ pensiondetail.id }}</td>
+        </tr>
+        <tr>
+          <th>Pension Amount</th>
+          <td>{{ pensiondetail.pensionAmount }}</td>
+        </tr>
+        <tr>
+          <th>Bank Service Charge</th>
+          <td>{{ pensiondetail.bankCharge }}</td>
+        </tr>
+      </table>
+
+      <button class="btn btn-success" (click)="back()">Back</button>
+    </div>
+  </form>
+</div>

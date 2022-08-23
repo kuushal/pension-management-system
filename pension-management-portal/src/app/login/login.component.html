@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+
+<body>
+  <section class="login">
+    <div class="login_box">
+      <div class="left">
+        <div class="contact">
+          <form action="" ngNativeValidate #f="ngForm">
+            <h3>Sign In</h3>
+            <input type="text" name="username" [(ngModel)]="username" required placeholder="Enter your username" />
+            <input type="password" name="password" [(ngModel)]="password" required placeholder="Enter your password" />
+            <p *ngIf="(username !== '' && password !== '') || error" class="error">
+              {{ error }}
+            </p>
+
+            <div class="submit bg-primary">
+              <input style="font-size: 17px;" type="submit" value="Login" [disabled]="!f.valid" (click)="checkLogin()"
+                class="submit" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>

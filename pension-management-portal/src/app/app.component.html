@@ -1,0 +1,14 @@
+<div>
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="navbar-expand">
+      <a href="#" class="navbar-brand">Pension Management Portal</a>
+    </div>
+    <div class="nav navbar-nav navbar-right">
+      <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="nav-link">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>
